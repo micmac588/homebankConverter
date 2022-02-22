@@ -24,13 +24,9 @@ class IngTransactionFactory(TransactionFactory):
            _libelle.startswith("ANNUL ACHAT") or \
            _libelle.startswith("AVOIR CARTE"):
             t = HbTransactionCarte(_date, _libelle, _amount, _currency, self.logger)
-        elif _libelle.startswith("VIREMENT EMIS VERS") or \
-             _libelle.startswith("VIREMENT SEPA EMIS VERS") or \
-             _libelle.startswith("VIREMENT RECU") or \
-             _libelle.startswith("VIREMENT SEPA RECU"):
+        elif _libelle.startswith("VIREMENT EMIS VERS") or _libelle.startswith("VIREMENT SEPA EMIS VERS") or _libelle.startswith("VIREMENT RECU") or _libelle.startswith("VIREMENT SEPA RECU"):
             t = HbTransactionVirement(_date, _libelle, _amount, _currency, self.logger)
-        elif re.match(r"PAIEMENT D'UN CH.*QUE", _libelle) or \
-             re.match(r"CHEQUE", _libelle):
+        elif re.match(r"PAIEMENT D'UN CH.*QUE", _libelle) or re.match(r"CHEQUE", _libelle):
             t = HbTransactionCheque(_date, _libelle, _amount, _currency, self.logger)
         elif _libelle.startswith("PRLV SEPA"):
             t = HbTransactionPrlvDirect(_date, _libelle, _amount, _currency, self.logger)
