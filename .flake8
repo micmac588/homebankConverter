@@ -1,0 +1,4 @@
+[flake8]
+ignore = E501,S410, S320, S101
+max-complexity = 10
+exclude = tmp
