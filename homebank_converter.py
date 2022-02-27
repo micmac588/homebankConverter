@@ -38,8 +38,9 @@ def prepare_logger(logger_name, verbosity, log_file=None):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--inputfile", help="The ING csv file.", required=True)
+    parser.add_argument("-i", "--inputfile", help="your bank account historic csv file.", required=True)
     parser.add_argument("-o", "--outputfile", help="The HomeBank csv file.", required=False, default="homebank.csv")
+    parser.add_argument("-b", "--bank", help="your bank among [ing-fr].", required=False, default="ing-fr")
     parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase the verbosity", required=False)
     parser.add_argument("-l", "--logfile", help="log file name", required=False)
 
@@ -54,8 +55,10 @@ def main():
 
             icsv = csv.reader(fi, delimiter=';')
             ocsv = csv.writer(fo, delimiter=';')
-
-            factory = IngTransactionFactory(logger)
+            if args.bank == 'ing-fr':
+                factory = IngTransactionFactory(logger)
+            else:
+                raise ValueError('Bank %s is not supported yet.' % args.bank)
             nb_lines = 0
             for row in icsv:
                 logger.debug("process %s" % row)

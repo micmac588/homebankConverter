@@ -1,5 +1,5 @@
 # homebankConverter
-It converts your Bank account historic csv file into another csv file you can import in HomeBank application (http://homebank.free.fr/en/).
+It converts your bank account historic csv file into another csv file you can import in HomeBank application (http://homebank.free.fr/en/).
 
 # pre-requisites
 python3 and additionnal packages (see requirements.txt)
@@ -9,7 +9,7 @@ python3 and additionnal packages (see requirements.txt)
 
 - ``cd homebankConverter``
 
-- ``./homebank_converter.py -i bank_input_file.csv -o homebank_output_file.csv -v``
+- ``./homebank_converter.py -b 'ing-fr' -i bank_input_file.csv -o homebank_output_file.csv -v``
 
 # linter
 - ``flake8``
@@ -25,10 +25,11 @@ Support french ING Bank account historic only.
 # contribution
 Contribution are welcomed to add support for new banks.
 - Create a new directory (example ing_fr)
+- Add the new directory to POTHONPATH (example export PYTHONPATH=./ing-fr)
 - Create a new Class derived from TransactionFactory
 - Create a new Class derived from HbTransaction
-- Add test, best coverage as possible. Use anonymised data.
+- Add test with best coverage as possible. Use anonymised data.
 
 # roadmap
-- Support of Boursorama
+- Support of Boursorama bank
 
