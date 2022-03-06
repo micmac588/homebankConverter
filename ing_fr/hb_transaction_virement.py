@@ -39,13 +39,18 @@ class HbTransactionVirement(HbTransaction):
                 self.info = p[1]
             except TypeError:
                 try:
-                    p = parse("VIREMENT SEPA EMIS VERS   {}", libelle)
-                    self.payee = ""
-                    self.info = p[0]
-                except TypeError:
-                    p = parse("VIREMENT SEPA EMIS VERS", libelle)
-                    self.payee = ""
+                    p = parse("VIREMENT SEPA EMIS VERS  {:11d}", libelle)
+                    self.payee = str(p[0]).zfill(11)
                     self.info = ""
+                except TypeError:
+                    try:
+                        p = parse("VIREMENT SEPA EMIS VERS   {}", libelle)
+                        self.payee = ""
+                        self.info = p[0]
+                    except TypeError:
+                        p = parse("VIREMENT SEPA EMIS VERS", libelle)
+                        self.payee = ""
+                        self.info = ""
 
     def _process_virement_recu(self, libelle):
         try:
