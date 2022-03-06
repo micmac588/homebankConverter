@@ -7,7 +7,7 @@ normal_cases_input = [
     (["16/08/2019", "ANNUL ACHAT  payee", "", "16,02", "EUR"], 1, "payee", ""),
     (["28/04/2020", "PAIEMENT D'UN CH�QUE 1234567", "", "-147,94", "EUR"], 2, "", "CHEQUE 1234567"),
     (["19/02/2020", "CHEQUE 3969751", "", "-25,00", "EUR"], 2, "", "CHEQUE 3969751"),
-    (["27/04/2020", "PRLV SEPA someone : something1 payee : something2", "", "-57,48", "EUR"], 11, "payee", ""),
+    (["27/04/2020", "PRLV SEPA payee : something1 transfert_id DE payee : something2", "", "-57,48", "EUR"], 11, "payee", "transfert_id"),
     (["25/04/2020", "RETRAIT DAB EN EURO ZONE EURO 24/04/2020 payee", "", "-80,00", "EUR"], 1, "payee", ""),
     (["20/04/2020", "VIREMENT SEPA RECU payee", "", "2000,00", "EUR"], 4, "payee", ""),
     (["03/02/2020", "VIREMENT EMIS VERS payee 01234567891 info", "", "-100,00", "EUR"], 4, "payee 01234567891", "info"),
