@@ -1,11 +1,11 @@
 import re
 from transaction_factory import TransactionFactory
-from hb_transaction_carte import HbTransactionCarte
-from hb_transaction_virement import HbTransactionVirement
-from hb_transaction_cheque import HbTransactionCheque
-from hb_transaction_frais_bancaire import HbTransactionFraisBancaire
-from hb_transaction_prlv_direct import HbTransactionPrlvDirect
-from hb_transaction_depot import HbTransactionDepot
+from .hb_transaction_carte import HbTransactionCarte
+from .hb_transaction_virement import HbTransactionVirement
+from .hb_transaction_cheque import HbTransactionCheque
+from .hb_transaction_frais_bancaire import HbTransactionFraisBancaire
+from .hb_transaction_prlv_direct import HbTransactionPrlvDirect
+from .hb_transaction_depot import HbTransactionDepot
 from hb_transaction import HbTransaction
 
 

@@ -3,6 +3,10 @@ import argparse
 import csv
 import logging
 from ing_fr.ing_transaction_factory import IngTransactionFactory
+from boursorama.bsr_transaction_factory import BsrTransactionFactory
+
+ENCODING = {'ing-fr': "ISO-8859-1",
+            'boursorama': "utf-8-sig"}
 
 
 def prepare_logger(logger_name, verbosity, log_file=None):
@@ -40,7 +44,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--inputfile", help="your bank account historic csv file.", required=True)
     parser.add_argument("-o", "--outputfile", help="The HomeBank csv file.", required=False, default="homebank.csv")
-    parser.add_argument("-b", "--bank", help="your bank among [ing-fr].", required=False, default="ing-fr")
+    parser.add_argument("-b", "--bank", choices=['ing-fr', 'boursorama'], help="your bank among ['ing-fr','boursorama'].", required=False, default="ing-fr")
     parser.add_argument("-v", "--verbosity", action="count", default=0, help="increase the verbosity", required=False)
     parser.add_argument("-l", "--logfile", help="log file name", required=False)
 
@@ -50,19 +54,23 @@ def main():
     ouput_file = args.outputfile
     logger = prepare_logger("homebank_converter", args.verbosity, args.logfile)
 
-    with open(input_file, "r", encoding="ISO-8859-1") as fi:
-        with open(ouput_file, "w", encoding="ISO-8859-1") as fo:
+    with open(input_file, "r", encoding=ENCODING[args.bank]) as fi:
+        with open(ouput_file, "w", encoding="UTF-8") as fo:
 
             icsv = csv.reader(fi, delimiter=';')
             ocsv = csv.writer(fo, delimiter=';')
             if args.bank == 'ing-fr':
                 factory = IngTransactionFactory(logger)
+            elif args.bank == 'boursorama':
+                factory = BsrTransactionFactory(logger)
             else:
                 raise ValueError('Bank %s is not supported yet.' % args.bank)
             nb_lines = 0
             for row in icsv:
                 logger.debug("process %s" % row)
                 t = factory.get_transaction(row)
+                if not t:
+                    continue
                 logger.debug("result  [%s]" % t)
                 ocsv.writerow(t.toCsv())
                 nb_lines += 1

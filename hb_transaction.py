@@ -21,25 +21,26 @@ class HbTransaction():
     _FRAIS_BANCAIRE = 10
     _PRELEVEMENT_DIRECT = 11
 
-    def __init__(self, date, amount, currency, logger):
+    def __init__(self, date, amount, currency, logger, category=""):
         self.date = date
         self._assertDate()
         self.amount = amount
         self._assertAmount()
         self.currency = currency
         self._assertCurrency()
+        self.category = ""  # not managed
+        self.logger = logger
         self.payment = self._AUCUN
         self.info = ""
         self.payee = ""
         self.memo = ""
-        self.category = ""  # managed by HomeBank himself
         self.tags = ""  # not managed
 
     def _assertDate(self):
         """
         Check the date is HomeBank compatible
         """
-        datetime.strptime(self.date, "%d/%m/%Y")
+        datetime.strptime(self.date, "%d-%m-%Y")
 
     def _assertAmount(self):
         """
